@@ -1,8 +1,15 @@
 package pl.sdacademy.io;
 
 import java.io.*;
+import java.lang.annotation.Target;
+import java.net.MalformedURLException;
+import java.net.URLConnection;
+import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class IoExample {
   public static void main(String[] args) throws IOException {
@@ -20,6 +27,8 @@ public class IoExample {
         line = bufferedReader.readLine();
       }
     }*/
+    OutputStream outputStream ;
+    Files.copy(Paths.get("path1","file.txt"),Paths.get("path2","file.txt"));
 
     try(BufferedReader bufferedReader = new BufferedReader(new FileReader(Paths.get("files","file.txt").toFile()))){
 
@@ -30,6 +39,9 @@ public class IoExample {
       }
     }
 
+    URLConnection urlConnection = new URL("http://google.pl").openConnection();
+    urlConnection.getInputStream();
+
 
     try(BufferedWriter bufferedWriter=new BufferedWriter(new FileWriter(Paths.get("files","file.txt").toFile()))){
       bufferedWriter.write("String tekstowy.");
@@ -39,6 +51,21 @@ public class IoExample {
       bufferedWriter.flush();
     }
 
+    List<String> listOfFilesInDir = Files.list(Paths.get("files")).map(Path::getFileName).map(Path::toString).collect(Collectors.toList());
+
+
+  }
+
+  static InputStream inputStream() throws IOException {
+    if(true){
+      return fileSource();
+    }
+    else if(false){
+      return new URL("http://google.pl").openConnection().getInputStream();
+    }
+    else{
+      return new StringBuffer("test".getBytes());
+    }
   }
 
   private static InputStream fileSource() throws FileNotFoundException {
