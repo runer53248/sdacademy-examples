@@ -64,7 +64,7 @@ public class IoExample {
       return new URL("http://google.pl").openConnection().getInputStream();
     }
     else{
-      return new StringBuffer("test".getBytes());
+      return new ByteArrayInputStream("hello".getBytes());
     }
   }
 
